@@ -1,0 +1,39 @@
+﻿@page "/"
+@inherits IndexBase
+
+    <EditForm Model="@Bord.AnswerNumber" OnValidSubmit="@OnValidSubmit" OnInvalidSubmit="@OnInvalidSubmit">
+        <DataAnnotationsValidator />
+        @*<ValidationSummary />*@
+        <input type="text" id="italicsCheck" @bind-value=Bord.AnswerNumber.Name />
+        @*<button class="btn btn-danger" @onclick="() => StartGame()">スタート</button>*@
+        <button type="submit" class="btn btn-danger">スタート</button>
+        <ValidationMessage For="@(() => Bord.AnswerNumber.Name)" />
+        @*@validationMessage*@
+        <br />
+        <br />
+
+        @if (Bord == null || Bord.Cells.Count == 0)
+        {
+            <p><em>名前を入力して、スタートボタンを押すとゲームを開始します</em></p><br />
+        }
+        else
+        {
+
+            <table class="table">
+                <tbody>
+                    @for (int i = 0; i <= 5; i++)
+                    {
+                        <tr>
+                            @for (int j = 0; j <= 5; j++)
+                            {
+                                var cell = Bord.Cells[i * 6 + j];
+                                <td class="padding5px"><button type ="button" class=@GetCss(cell.Status) @onclick="() => BordClick(cell)">@cell.Value</button></td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            @Message
+        }
+    </EditForm>

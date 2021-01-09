@@ -1,0 +1,25 @@
+﻿@page "/fetchdata"
+@inherits IndexBase
+
+@if (Bord == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @Message
+    <table class="table">
+        <tbody>
+            @for (int i = 0; i <= 5; i++)
+            {
+                <tr>
+                    @for (int j = 0; j <= 5; j++)
+                    {
+                        var cell = Bord.Cells[i * 6 + j];
+                        <td class="padding5px"><button class=@GetCss(cell.Status) @onclick="() => BordClick(cell)">@cell.Value</button></td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}

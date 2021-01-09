@@ -1,0 +1,24 @@
+﻿@page "/mirror"
+@inherits MirrorBase
+
+<h3>Mirror</h3>
+
+<input type="text" id="italicsCheck" @bind-value=Name />
+
+@if (Cells != null && Cells.Count >= 36)
+{
+    <table class="table">
+        <tbody>
+            @for (int i = 0; i <= 5; i++)
+            {
+                <tr>
+                    @for (int j = 0; j <= 5; j++)
+                    {
+                        var cell = Cells[i * 6 + j];
+                        <td><button type="button" class=@GetCss(cell.Status)>@cell.Value</button></td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}

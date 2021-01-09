@@ -1,0 +1,28 @@
+﻿<Window x:Class="FourCharacterPhrase.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FourCharacterPhrase.WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="750" Width="700" x:Name="ViewMain" WindowStartupLocation="CenterScreen">
+    <Grid Height="628" Width="664">
+        <Grid.Resources>
+            <local:CellStatusToBackgroundConverter x:Key="CellStatusConverter"/>
+        </Grid.Resources>
+        <ListView ItemsSource="{Binding Bord.Value.Cells}" SelectionMode="Extended" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Width="100" Height="100">
+                        <Button Content="{Binding Value}" Width ="100" Height="100" FontSize="36" HorizontalAlignment="Center" Background="{Binding Status, Converter={StaticResource CellStatusConverter}}" VerticalAlignment="Center"  Command="{Binding DataContext.BordClickCommand, ElementName = ViewMain}" CommandParameter="{Binding}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Window>
